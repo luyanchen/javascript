@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1" >
+        <title>排序方法</title>
+    <head>
+</html>
+<body>
+
+
+
+<script type="text/javascript">
+//封装原型方法	
+Function.prototype.method = function(name,func){
+	this.prototype[name] = func;
+	return this;
+}
+
+//插入排序：首先在当前有序区R[1..i-1]中查找R[i]的正确插入位置k(1≤k≤i-1)；然后将R[k．．i-1]中的记录均后移一个位置，腾出k位置上的空间插入R[i]。。
+Array.method('insertSort',function(){
+	var len = this.length;
+	var i,j,tmp;
+	for(i=1;i<len;i++){
+		tmp = this[i];//当前比较的数，必须暂存
+		j=i-1;
+		while(j>=0 && this[j] > tmp){
+			this[j+1] = this[j];//大的后移，留出this[j]空；
+			j--;	
+		}
+		this[j+1] = tmp;
+	}
+	return this;
+});
+//二分插入排序：先在有序区通过二分查找的方法找到移动元素的起始位置，然后通过这个起始位置将后面所有的元素后移。
+
+Array.method('bInsertSort', function(){
+    var len = this.length,
+        i, j, tmp, low, high, mid;
+    for(i=1; i<len; i++){
+        tmp = this[i];
+        low = 0;
+        high = i - 1;
+        while(low <= high){
+            mid = parseInt((low+high)/2); //一定要parseInt，否则在某些浏览器上是小数
+            if(tmp < this[mid]) high = mid - 1;//不能是high=mid，否则出不来
+            else low = mid + 1;//不能是low=mid，否则出不来
+        }//出来时low>high
+        for(j=i-1; j>=high+1; j--){
+            this[j+1] = this[j];            
+        }
+        this[low] = tmp;//插入位置为high+1或low
+    }
+    return this;
+});
+
+// 希尔排序：先将整个待排序记录序列分割成若干个子序列；在序列内分别进行直接插入排序，待整个序列基本有序时，； 再对全体记录进行一次直接插入排序
+Array.method('shellSort' , function(){
+    var len = this.length;
+    var i,j,gap,tmp,k;
+    gap = parseInt(len/2);
+    while(gap > 0){     
+        for(i=gap;i<len;i++){
+            //内部使用插入排序
+            for(k=i+gap;k<len;k=k+gap){
+                tmp = this[k];
+                j = k-gap;
+                while(j >= i && this[j] > tmp){
+                    this[j+gap] = this[j];
+                    j= j-gap;
+                }
+                this[j+gap] = tmp;
+            }
+        }
+        gap = parseInt(gap/2);
+    }
+    return this;
+});
+//冒泡排序（相邻交换）
+Array.method('bubbleSort', function(){
+    var len = this.lenght,
+        i, j, tmp;
+    for(i=0; i<len; i++){
+        for(j=len-1; j>i; j--){
+            if(this[j] > this[j-1]){
+                tmp = this[j-1];
+                this[j-1] = this[j];
+                this[j] = tmp;
+            }
+        }
+    }
+    return this;
+});
+//改进的冒泡
+Array.method('rBubbleSort', function(){
+    var len = this.length,
+        i, j, tmp, exchange;
+    for(i=0; i<len; i++){
+        exchange = 0;
+        for(j=len-1; j>i; j--){
+            if(this[j] < this[j-1]){
+                tmp = this[j];
+                this[j] = this[j-1];
+                this[j-1] = tmp;
+                exchange = 1;
+            }
+        }
+        if(!exchange) return this;
+    }
+    return this;
+});
+//快速排序
+//（1）在数据集之中，选择一个元素作为"基准"（pivot）。
+//（2）所有小于"基准"的元素，都移到"基准"的左边；所有大于"基准"的元素，都移到"基准"的右边。
+//（3）对"基准"左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止。
+Array.method('quickSort', function(){
+    var result;
+    quickSort = function(arr) {
+    　　if (arr.length <= 1) { return arr; }
+       var tmp = arr[0];//第一项；
+    　　var left = [];
+    　　var right = [];
+    　　for (var i = 1; i < arr.length; i++){
+    　　　　if (arr[i] < tmp) {
+    　　　　　　left.push(arr[i]);
+    　　　　} else {
+    　　　　　　right.push(arr[i]);
+        　　}
+    　　}
+    　　return quickSort(left).concat(tmp, quickSort(right));//拼接三项
+  };
+  result = quickSort(this);
+  return result;
+});
+//选择排序：在无序区中选出最小的元素，然后将它和无序区的第一个元素交换位置。（与最小的交换）
+Array.method('selectSort', function(){
+    var len = this.length,
+        i, j, k, tmp;
+    for(i=0; i<len; i++){
+        k = i;//最小
+        for(j=i+1; j<len; j++){//找到最小
+            if(this[j] < this[k]) k = j;
+        }
+        if(k!=i){
+            tmp = this[k];
+            this[k] = this[i];
+            this[i] = tmp;
+        }
+    }
+    return this;
+});
+//堆排序
+Array.method('createHeap', function(low, high){
+    var i=low, j=2*i, tmp=this[i];
+    while(j<=high){
+        if(j< high && this[j]<this[j+1]) j++; //从左右子节点中选出较大的节点
+        if(tmp < this[j]){                    //根节点(tmp)<较大的节点
+            this[i] = this[j];
+            i = j;
+            j = 2*i;
+        }else break;
+    }
+    this[i] = tmp;                            //被筛选的元素放在最终的位置上
+    return this;
+});
+Array.method('heapSort', function(){
+    var i, tmp, len=this.length-1;
+    for(i=parseInt(len/2); i>=1; i--) this.createHeap(i, len);
+    for(i=len; i>=2; i--){
+        tmp = this[1];
+        this[1] = this[i];
+        this[i] = tmp;
+        this.createHeap(1, i-1);
+    }
+    return this;
+});
+//归并排序
+Array.method('merge', function(low, mid, high){
+    var tmp = new Array(), i = low, j=mid+1, k=0;
+    while(i<=mid && j<=high){
+        if(this[i] <= this[j]){//比较第一部分和第二部分，取较小者
+            tmp[k] = this[i];
+            i++;
+            k++;
+        }else{
+            tmp[k] = this[j];
+            j++;
+            k++;
+        }
+    }
+    while(i<=mid){
+        tmp[k] = this[i];
+        i++;
+        k++;
+    }
+    while(j<=high){
+        tmp[k] = this[j];
+        j++;
+        k++;
+    }
+    for(k=0,i=low; i<=high; k++,i++) this[i] = tmp[k];
+
+    return this;
+});
+Array.method('mergePass', function(length, n){
+    var i;
+    for(i=0; i+2*length-1<n; i=i+2*length) this.merge(i, i+length-1, i+2*length-1);
+    if(i+length-1 < n) this.merge(i, i+length-1, n-1); //考虑到最后一个子表的长度可能小于length，所以要特殊处理一下
+
+    return this;
+});
+
+Array.method('mergeSort', function(){
+    var len = this.length,
+        length;
+    for(length=1; length<len; length=2*length) this.mergePass(length, len);
+
+    return this;
+});
+var test = [0,1,7,6,3,4,9,8,3];
+//console.log(test.insertSort());
+//console.log(test.bInsertSort());
+console.log(test.shellSort());
+//console.log(test.selectSort());
+//sconsole.log(test.quickSort());
+</script>
+
+</body>

@@ -1,0 +1,88 @@
+ <!doctype html>
+<html lang="en" ng-app="phonecatApp">
+<head>
+  <meta charset="utf-8">
+  <title>跨域问题</title>
+  <script src="./js/ajax.js"></script>
+  <script src="./js/jquery.min.js"></script>  
+
+
+
+</head>
+<body>
+	<iframe id="ifr" src="./crosssite.html"></iframe>
+	  <script type="text/javascript">
+  /*jsonp*/
+ /*
+    // 得到航班信息查询结果后的回调函数
+    var flightHandler = function(data){
+        alert('你查询的航班结果是：票价 ' + data.price + ' 元，' + '余票 ' + data.tickets + ' 张。');
+    };
+    
+    // 提供jsonp服务的url地址（不管是什么类型的地址，最终生成的返回值都是一段javascript代码）
+    var url = "http://localhost:8080/crosssitejsonp.php?price=123&tickets=456&callback=flightHandler";
+    // 创建script标签，设置其属性
+    var script = document.createElement('script');
+    script.setAttribute('src', url);
+    // 把script标签加入head，此时调用开始
+    document.getElementsByTagName('head')[0].appendChild(script);
+*/
+	  /*ajax*/
+	  
+		$.ajax({
+             type: "get",
+             async: false,
+             url: "http://localhost:8080/crosssitejsonp.php",
+             data:{"price":"123","tickets":"1"},
+             dataType: "jsonp",
+             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+             jsonpCallback:"flightHandler",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
+             success: function(json){
+               //  alert('您查询到航班信息：票价： ' + json.price + ' 元，余票： ' + json.tickets + ' 张。');
+             },
+             error: function(){
+                 //alert('fail');
+             }
+         });
+
+    /*CORS*/
+   	/*jquery*/
+/*
+    $.post("http://localhost:8080/crosssitejsonp.php",{name:"fdipzone",gender:"male"})  
+      .done(function(data){  
+        document.innerHTML = data.name + ' ' + data.gender;  
+      });  
+*/
+s
+/*
+    var state = 0, 
+    iframe = document.createElement('iframe'),
+    loadfn = function() {
+        if (state === 1) {
+            var data = iframe.contentWindow.name;    // 此时同域，可读读取数据
+            alert(data);    //弹出'I was there!'
+        } else if (state === 0) {//当该window的location变化，然后重新加载，它的name属性可以依然保持不变
+            state = 1;
+            iframe.contentWindow.location = "./proxy.html";    // 设置的代理文件
+        }  
+    };
+    iframe.src = 'http://localhost:8080/crosssite_b.html';
+    if (iframe.attachEvent) {
+        iframe.attachEvent('onload', loadfn);
+    } else {
+        iframe.onload  = loadfn;
+    }
+    document.body.appendChild(iframe);
+*/
+ 	/*postMessage*/
+
+
+    var ifr = document.getElementById('ifr');
+    var targetOrigin = 'http://localhost:8080/crosssite_b.html';  // 若写成'http://b.com/c/proxy.html'效果一样
+                                        // 若写成'http://c.com'就不会执行postMessage了
+    ifr.contentWindow.postMessage('I was there!', targetOrigin);
+   </script>
+ 
+</body>
+</html>
+

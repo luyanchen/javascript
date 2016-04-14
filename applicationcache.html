@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html manifest="cache.manifest">
+<head>
+    <title>离线缓存</title>
+    <meta charset="utf-8">
+</head>
+<body>
+	<img src="./images/1.jpg"/>
+	<img src="./images/2.jpg"/>
+    <script type="text/javascript">
+        window.onload = function(){
+           if(window.applicationCache){
+           		console.log(window.applicationCache);
+           		applicationCache.addEventListener('updateready',function(){
+           			applicationCache.swapCache();
+           		});
+           		applicationCache.addEventListener('downloading',function(){
+           			console.log("first");
+           		});
+           		console.log(applicationCache);
+           }else{
+           		console.log('your browser can not support applicationCache');
+           }
+       };
+    </script>
+</body>
+</html>

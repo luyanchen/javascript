@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maxinum-scale=1.0,user-scalable=1" >
+        <title>去掉一个数组的重复元素</title>
+    <head>
+</html>
+
+<script>
+	var arr = ['a','b','d','a','c','d','h','c','a'];
+	(function deletereitem(arr){
+		var newarr = [];
+		for(var i=0;i<arr.length;i++){
+			if(i == 0){
+				newarr[i] = arr[i];
+			}else{
+				for(var j=0;j<newarr.length;j++){
+					if(arr[i] === newarr[j]){
+						break;
+					}else{
+						if(j === newarr.length-1){
+							newarr[newarr.length] = arr[i];
+						}
+					}
+				}
+
+					
+			}
+		}		
+		console.log(newarr);
+	})(arr);
+
+	Array.prototype.strip = function(){
+		var newarr = [];
+		for(var i=0;i<this.length;i++){
+			if(i == 0){
+				newarr[i] = this[i];
+			}else{
+				for(var j=0;j<newarr.length;j++){
+					if(this[i] === newarr[j]){
+						break;
+					}else{
+						if(j === newarr.length-1){
+							newarr[newarr.length] = this[i];
+						}
+					}
+				}
+
+					
+			}
+		}		
+		console.log(newarr);
+
+	}
+	arr.strip();
+
+
+</script>

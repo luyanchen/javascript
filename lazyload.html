@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maxinum-scale=1.0,user-scalable=1" >
+        <title>懒加载lazyload</title>
+    <head>
+</html>
+<p id="mouseup">mouseup</p>
+<input id="keydown" />keydown
+
+<script>
+    function Lazyload(func, obj) {//obj目标节点对象, func要触发的函数
+        this.func = func;
+        this.obj = obj;
+        this.it = setInterval(function() {//2s检查一次
+            this.checkScroll();
+        }.bind(this), 2000);//bind为setInterval绑定lazyload对象，否则this会指向window对象
+    }
+    Function.prototype.bind = function(obj) {//对象绑定
+        var __method = this;
+        return function() { 
+        return __method.apply(obj, arguments); 
+        };
+    }   
+
+    Lazyload.prototype.checkScroll = function() {
+        var scrollY = document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset || 0,//页面滚动条高度
+        seeY = window.innerHeight||document.documentElement.clientHeight,//浏览器可视区域高度
+        func = this.func;
+        if(Math.abs(this.getY() - scrollY) < seeY) {//当目标节点进入可视区域，即页面滚动条高度减去节点距页面顶部距离小于浏览器可视高度
+            clearInterval(this.it);//清除定时器
+            return func();
+        }
+    }
+    Lazyload.prototype.getY=function(){//目标节点距页面顶部高度
+        var obj=this.obj;
+        tp = obj.offsetTop;
+        if (obj.offsetParent) while (obj = obj.offsetParent) tp += obj.offsetTop;
+            return tp;
+    }
+
+</script>

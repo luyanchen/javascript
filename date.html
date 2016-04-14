@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maxinum-scale=1.0,user-scalable=1" >
+        <title>按照格式 xxxx年xx月xx日xx时xx分xx秒动态显示时间</title>
+    <head>
+    <style>
+    	#demo {
+  width: 0;
+  height: 0;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent red transparent;
+}
+    </style>
+</html>
+<p id="time"></p>
+<div id="demo"></div>
+<script>
+	
+	var str = '';
+	setInterval(function(){
+		var date = new Date();
+		str = date.getFullYear()+'年'+traction(date.getMonth()+1)+'月'+traction(date.getDate())+'日'+traction(date.getHours())+'时'+traction(date.getMinutes())+'分'+traction(date.getSeconds())+'秒';
+		 document.getElementById('time').innerHTML = str;
+		 str = '';
+
+ 	},1000);
+	function traction(a){
+		if(a<10){ 
+			return '0'+a;
+		}else{ 
+			return a;
+		}
+	}
+</script>

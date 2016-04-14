@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maxinum-scale=1.0,user-scalable=1" >
+        <title>检测浏览器和操作系统</title>
+    <head>
+</html>
+<p id="mouseup">mouseup</p>
+<input id="keydown" />keydown
+
+<script>
+//2.13 检测浏览器和操作系统
+
+var sUserAgent = navigator.userAgent;
+
+//检测Opera、KHTML
+
+var isOpera = sUserAgent.indexOf("Opera") > -1;
+
+var isKHTML = sUserAgent.indexOf("KHTML") > -1 || sUserAgent.indexOf("Konqueror") > -1 || sUserAgent.indexOf("AppleWebKit") > -1;
+
+//检测IE、Mozilla
+
+var isIE = sUserAgent.indexOf("compatible") > -1 && sUserAgent.indexOf("MSIE") > -1 && !isOpera;
+
+var isMoz = sUserAgent.indexOf("Gecko") > -1 && !isKHTML;
+
+//检测操作系统
+
+var isWin = (navigator.platform == "Win32") || (navigator.platform == "Windows");
+
+var isMac = (navigator.platform.indexOf("Mac") > -1);
+
+var isUnix = (navigator.platform == "X11") && !isWin && !isMac;
+
+if(isOpera) document.write("Opera ");
+
+if(isKHTML) document.write("KHTML ");
+
+if(isIE) document.write("IE ");
+
+if(isMoz) document.write("Mozilla ");
+
+if(isWin) document.write("Windows");
+
+if(isMac) document.write("Mac");
+
+if(isUnix) document.write("Unix"); 
+	document.getElementById('keydown').onkeydown=function(e){
+		var e = e || window.event;
+		if(e.keyCode == 13){//回车
+			alert('keydown');
+		}
+
+	}
+	document.getElementById('mouseup').onmouseup= function(oEvent){
+
+    	var	oEvent = oEvent|| window.event;        //处理兼容性，获得事件对象
+    	var oTarget;
+    	if(oEvent.srcElement){              //处理兼容性，获取事件目标
+
+        	oTarget = oEvent.srcElement; //IE支持的写法
+
+    	}else{
+
+        	oTarget = oEvent.target; //Firefox支持的写法
+        }
+
+    	alert(oTarget.tagName);                //弹出目标的标记名称       
+
+	}
+	document.getElementById('mouseup').onmouseup= function(oEvent){
+
+    	var	oEvent = oEvent|| window.event;        //处理兼容性，获得事件对象
+    	alert(oEvent.button);                //弹出目标的标记名称       
+
+	}
+
+	try{
+
+    	alert(fresheggs);
+
+	}catch(exception){
+
+    	alert(exception);
+
+	} 
+	
+</script>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>html5本地存储</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <script type="text/javascript">
+    window.onload = function(){
+    //Web SQL Database
+
+        // var db = openDatabase('testDB', '1.0', 'Test DB', 2 * 1024 * 1024);
+        // var msg;
+        // db.transaction(function (context) {
+        //    context.executeSql('CREATE TABLE IF NOT EXISTS testTable (id unique, name)');
+        //    context.executeSql('INSERT INTO testTable (id, name) VALUES (0, "Byron")');
+        //    context.executeSql('INSERT INTO testTable (id, name) VALUES (1, "Casper")');
+        //    context.executeSql('INSERT INTO testTable (id, name) VALUES (2, "Frank")');
+        //  });
+
+        // db.transaction(function (context) {
+        //    context.executeSql('SELECT * FROM testTable', [], function (context, results) {
+        //     var len = results.rows.length, i;
+        //     console.log('Got '+len+' rows.');
+        //        for (i = 0; i < len; i++){
+        //       console.log('id: '+results.rows.item(i).id);
+        //       console.log('name: '+results.rows.item(i).name);
+        //     }
+        //  });
+        // });
+
+//localstorage sessionstorage
+
+        var ls=localStorage;
+
+        ls.clear();//0
+        console.log(ls.length);//0
+        ls.setItem('name','Byron');
+        ls.setItem('age','24');
+        console.log(ls.length);//2
+            
+        //遍历localStorage
+        for(var i=0;i<ls.length;i++){
+        	var key=ls.key(i);
+            console.log(key+' : '+ls.getItem(key));
+        }
+        ls.removeItem('age');
+        for(var i=0;i<ls.length;i++){
+            var key=ls.key(i);
+            console.log(key+' : '+ls.getItem(key));
+        }
+       
+        console.log(ls.length);
+    }
+    </script>
+</body>
+</html>

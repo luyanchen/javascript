@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maxinum-scale=1.0,user-scalable=1" >
+        <title>为Array写一个indexof方法</title>
+    <head>
+</html>
+
+<script>
+Object.prototype.Clone = function(){
+    var objClone;
+    if( this.constructor == Object )
+objClone = new this.constructor();
+
+    else
+
+objClone = new this.constructor(this.valueOf());
+
+    for ( var key in this ){
+
+    if ( objClone[key] != this[key] ){
+
+    if ( typeof(this[key]) == ‘object’ ){
+
+    objClone[key] = this[key].Clone();
+
+    }else{
+
+    objClone[key] = this[key];
+
+    }
+
+    }
+
+    }
+
+    objClone.toString = this.toString;
+
+    objClone.valueOf = this.valueOf;
+
+    return objClone;
+
+    }
+
+</script>

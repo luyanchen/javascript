@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maxinum-scale=1.0,user-scalable=1" >
+        <title>为Array写一个indexof方法</title>
+    <head>
+</html>
+
+<script>
+	var arr = ['a','b','d','a','c','d','h','c','a'];
+	Array.prototype.indexOf = function(e){
+		for(var i=0;i<this.length;i++){
+			if(e == this[i]){
+				return i;
+			}
+		}
+		return -1;
+	}
+	Array.prototype.lastindexOf = function(e){
+		for(var i=this.length-1;i>=0;i--){
+			if(e == this[i]){
+				return i;
+			}
+		}
+		return -1;
+	}
+	console.log(arr.indexOf('d'));
+	console.log(arr.lastindexOf('d'));
+</script>

@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>html5本地存储</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <script type="text/javascript">
+        window.onload = function(){
+           window.addEventListener('storage',function(e){
+            console.log(e);
+            },true);
+       }
+    </script>
+</body>
+</html>

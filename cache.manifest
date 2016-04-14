@@ -1,0 +1,10 @@
+CACHE MANIFEST
+#v0.1
+
+CACHE:
+./images/1.jpg
+
+NETWORK:
+./images/2.jpg
+FALLBACK
+./ offline.html
