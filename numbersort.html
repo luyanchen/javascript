@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1" >
+        <title>sort() 函数使用了 compare() 函数对数组按照数字大小进行排序,而不是按照字典顺序。</title>
+    </head>
+  	<body>
+		<script>
+	    function compare(num1, num2) {
+            return num1 - num2;
+		}
+        var nums = [3,1,2,100,4,200];
+        nums.sort(compare);
+        var strs = ['ta','g','d',2];
+        strs.sort();
+        console.log(nums); // 1,2,3,4,100,200
+		console.log(strs);
+		</script>
+	</body>
+</html>

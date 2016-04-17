@@ -2,16 +2,16 @@
 <html>
     <head lang="zh-cn">
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,maxinum-scale=1.0,user-scalable=1" >
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1" >
         <title>ajax方法</title>
         <script src="./js/ajax.js"></script>
     <head>
-</html>
+
 <body>
 
 <div id="load">数据正在加载……</div>
 
-<script type=”text/javascript”>
+<script type="text/javascript">
 
 new HttpRequest().send(null,"http://bbs.51js.com/index.php",function(r){
 
@@ -20,3 +20,4 @@ document.getElementById("load").innerHTML=r.responseText.match(/<img.*?(?:\/)?>/
 </script>
 
 </body>
+</html>

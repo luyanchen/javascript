@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1" >
+        <title>漂浮的云朵</title>
+    <head>
+    	<style>
+    	
+    	@keyframes animatedBackground {
+    	 from { transform: translateX(0px) ; -ms-transform:translateX(0px);-moz-transform: translateX(0px); -webkit-transform: translateX(0px);  } 
+    	 to {transform: translateX(100px) ; -ms-transform: translateX(100px) ; -moz-transform: translateX(100px) ;  -webkit-transform: translateX(100px); } 
+    	}
+    	#animate-area { 
+			animation: animatedBackground 2s linear infinite;
+			animation-direction:alternate-reverse; 
+			width:100%;
+		}
+
+		img{
+			height:50px;height:50px;
+		}
+    	</style>
+<body>
+	<div id="animate-area">
+		<img src="./images/ball.png" />
+	</div>
+
+
+
+</body>
+</html>

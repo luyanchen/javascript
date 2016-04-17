@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1" >
+        <title>array的difference方法</title>
+    </head>
+  	<body>
+		<script>
+		//返回一个数组的重复元素
+		Array.prototype.multi = function(){
+			if(this.length == 0){ return this;}
+			var tmp = [];
+			for(var i=0;i<this.length;i++){
+				for(var j=0;j<i;j++){
+					if(this[i] == this[j] && tmp.indexOf(this[i]) == -1 ){
+						tmp.push(this[i]);
+					}
+				}
+			}
+			return tmp;
+		}
+		//返回一个不含重复元素的数组
+		Array.prototype.unique = function(){
+			if(this.length == 0){ return this;}
+/*
+			var tmp = [];
+			for(var i=0;i<this.length;i++){
+				flag = false;
+				for(var j=0;j<tmp.length;j++){
+					if(tmp[j] == this[i]){
+						flag = true;
+						break;
+					}
+				}
+				if(!flag){
+					tmp.push(this[i]);
+				}
+			}
+*/
+			var tmp =[];
+			for(var i=0;i<this.length;i++){
+				if(tmp.indexOf(this[i]) == -1){tmp.push(this[i]);}
+			}
+			return tmp;
+		}
+		//返回一个数组的非重复部分
+		Array.prototype.norepeat = function(){
+			if(this.length == 0){ return this;}
+			var count = {};
+			var tmp =[];
+			for(var i=0;i<this.length;i++){
+				(this[i] in count)?count[this[i]]++:count[this[i]]=1;
+			}
+			for(var x in count){
+				if(count[x] == 1){
+					tmp.push(x);
+				}
+			}
+			return tmp;
+		}
+		//返回两个数组的不重复元素
+		Array.prototype.difference = function(arr1,arr2){
+			var tmp = arr1.concat(arr2);
+			return tmp.norepeat();
+		}
+		var a = ['d','f','d','g','h','d','h','f','d','f','s','h'];
+		var b = ['d','f','k','l'];
+		res = a.unique();
+		console.log(res);
+		res = a.multi();
+		console.log(res);
+		res = a.norepeat();
+		console.log(res);
+		res = a.difference(a,b);
+		console.log(res);
+		</script>
+	</body>
+</html>

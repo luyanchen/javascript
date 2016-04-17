@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1" >
+        <title>垂直居中</title>
+    <head>
+    	<style>
+        /*table*/
+    	#wrapper1{display:table;}
+        #cell1{display:table-cell; vertical-align:middle;　/*低版本 IE fix bug：*/_display: inline-block;}
+
+        /*弹窗垂直居中*/
+        #cell2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 300px;
+            width: 80%;
+            transform: translate(-50%,-50%) ; 
+            -ms-transform: translate(-50%,-50%);
+            -moz-transform:  translate(-50%,-50%); 
+            -webkit-transform:  translate(-50%,-50%); 
+            background: #343434;
+        }
+
+        /* 法2原理*/
+        #cell3{position:absolute;top:50%;height:240px;margin-top:-120px;text-align: center;background: #343434;width:80%;margin:-120px 10% 0px 10%;}
+
+        /*文本垂直居中*/
+        #wrapper4{line-height:100px;background: #343434;text-align: center;}
+        /*图片垂直居中*/
+        #wrapper5{line-height:200px;background: #343434;text-align: center;}/*居中*/
+        #cell5{vertical-align: middle;}/*垂直*/
+    	</style>
+<body>
+        <!--
+	<div id="wrapper1">
+		<div id="cell1">table垂直居中1</div>
+	</div>
+
+    <div id="wrapper2">
+        <div id="cell2">table垂直居中2</div>
+    </div>
+-->
+    <div id="wrapper3">
+        <div id="cell3">table垂直居中3</div>
+    </div>
+        <!--
+    <div id="wrapper4">
+        <div id="cell4">table垂直居中4</div>
+    </div>
+    <div id="wrapper5">
+        <img id="cell5" src="./images/ball.png" />
+    </div>
+    -->
+
+
+</body>
+</html>

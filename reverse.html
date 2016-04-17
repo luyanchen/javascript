@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1" >
+        <title>String的reverse方法</title>
+    </head>
+  	<body>
+		<script>
+		String.prototype.reserse = function(){
+			var arr = this.split(" ");
+			arr.reverse();	
+			return arr.join(" ");
+
+
+		}
+		var str = "hello wprl fas";
+	    console.log(str.reserse());
+	    //用reduce完成join
+	    function concat_define(accumulatedString, item) {
+            return accumulatedString + item;
+        }
+        var words = ["the ", "quick ","brown ", "fox "];
+		var sentence = words.reduce(concat_define);
+		console.log(sentence); // 显示 "the quick brown fox"
+		</script>
+	</body>
+</html>
