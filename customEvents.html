@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1" >
+        <title>自定义事件</title>
+    <head>
+<body>
+<script>
+    var object = new Events();
+    object.on('sleep',function(){
+        alert('sleep');
+    });
+    object.trigger('sleep');
+    //object.off('sleep');
+   // object.trigger('sleep');
+    object.trigger('sleep');
+    object.on('run',function(){
+        alert('run');
+    });
+    object.trigger('run');
+    function Events(){
+        var myevent = {
+            handlers :{},
+            on : function(type, handler) {
+                this.handlers[type] = handler;
+            },
+            trigger:function(type){
+                if(typeof this.handlers[type] === 'function'){        
+                    (this.handlers[type])();   
+                }else{
+                    alert('error')
+                }                 
+            },
+            off:function(type){
+                if(typeof this.handlers[type] === 'function'){
+                    delete this.handlers[type]; 
+                }                 
+            }        
+        }
+        return myevent;
+    }
+</script>
+
+</body>
+</html>
