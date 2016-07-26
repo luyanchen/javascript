@@ -1,0 +1,74 @@
+<script>
+
+
+
+
+//函数声明:
+function fnName1(){
+	var fnname = "1";
+	console.log(fnname);
+}
+//函数执行
+fnName1();
+
+/*
+//函数表达式:
+var fnName2 = function (){
+	var fnname = "2";
+	console.log(fnname);
+};
+*/
+//函数表达式,加()执行；this指向fnName2
+var fnName2 = function (){
+	var fnname = "2";
+	console.log(fnname);
+}();
+
+//匿名函数
+/*
+function(){
+	var fnname = "3";
+	console.log(fnname);
+}
+*/
+//匿名函数加()运算符, 成为函数表达式，可以加()执行；this 指向匿名函数
+(function(){
+	var fnname = "3";
+	console.log(fnname);
+})();
+
+
+name = "window";
+var obj = {
+    name : "obj",
+    getName : function(){
+        console.log(this.name);
+    }
+}
+
+obj.getName();//函数执行，this指向obj,输出obj
+(obj.getName)();//1.obj.getName等于function{ console.log(this.name);} this指向obj; 2.执行,输出obj
+(obj.getName = obj.getName)();//1.赋值，this指向window; 2.执行,输出window
+
+
+
+(function(){
+	var a = "inner";
+	console.log(a);//匿名函数执行,this指向匿名函数,输出inner
+	setTimeout("console.log(a);");//匿名函数执行,this指向匿名函数;setTimeout是window方法,this指向window。此时参数为字符串(基本类型),在window环境下执行setTimeout,a为定义，出错！
+})();
+(function(){
+	var a = "inner";
+	console.log(a);//匿名函数执行,this指向匿名函数,输出inner
+	setTimeout(console.log(a));//匿名函数执行,this指向匿名函数;setTimeout是window方法,this指向window。此时参数为字符串(基本类型),在window环境下执行setTimeout,a为定义，出错！
+})();
+//改进
+(function(){
+	var a = "inner";
+	console.log(a);//匿名函数执行,this指向匿名函数,输出inner
+	setTimeout(function(){console.log(a)});////匿名函数执行,this指向匿名函数;setTimeout是window方法,this指向window。此时参数为匿名函数，且包含局部变量a,闭包,在window环境下执行setTimeout,a还是匿名函数中的a，输出inner
+})();
+
+
+
+</script>

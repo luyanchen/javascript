@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1" >
+        <script src="./js/jquery.min.js"></script>
+        <title>加载动画</title>
+    <head>
+    	<style>
+.welcome-main{
+    text-align:center;
+}
+.wec-card{
+    opacity:0;
+    background-color: #fff;
+    border-radius: 6px;
+    border: 1px solid #f2f2f2;
+    overflow: hidden;
+    margin: 0 10px 13px;
+}
+.wec-card .card-title{
+    height: 40px;
+    padding: 0 15px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.card-title a{
+    font-size: 12px;
+    color: #878787;
+}
+.card-title.btn{
+    border-bottom: 1px solid #f2f2f2;
+}
+.wec-card .order-list li{
+    border-color: #f2f2f2;
+}
+.wec-card .card-title .name{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    color: #333;
+    font-size: 14px;
+}
+.wec-card .tit{
+    line-height: 14px;
+    height: 14px;
+    color: #adadad;
+    position: relative;
+    margin: 1px 0 1px 15px;
+    z-index: 1;
+}
+.wec-card .tit:after{
+    content: '';
+    height: 0;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 50%;
+    z-index: -1;
+    border-top: 1px solid #f2f2f2;
+}
+.wec-card .tit span{
+    display: inline-block;
+    background-color: #fff;
+    padding-right: 10px;
+    font-size: 12px;
+}
+.wec-card .error-msg{
+    font-size: 13px;
+    text-align: center;
+    color: #666;
+    padding: 30px 0;
+    display: none;
+}
+.wec-card .order-list{
+    border: 0;
+}
+.wec-card .order-list .common-arrow{
+    display: none;
+}
+.wec-card .common-arrow{
+    -webkit-transition: all .5s;
+    transition: all .5s;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin-bottom: 5px;
+}
+ /*loading*/
+.loading.welcome-main{     
+    margin: 93px auto;
+ }   	
+.loading .wec-img{
+    -webkit-animation:fadeIn 1s 0s ease both;
+}
+.loading .hi{
+    -webkit-animation:fadeInUp .3s 0s ease both;
+}
+/*loaded*/
+.loaded.welcome-main{
+    -webkit-animation:mainpadding .5s .4s ease both;
+}
+.loaded .wec-img{
+    -webkit-animation:imgSmall .5s .5s ease both;
+}
+.loaded .hi.fst{
+    -webkit-animation:fadeOutUp .3s 0s ease both;
+}
+.loaded .wec-card{
+    -webkit-animation:cardUp .5s .4s ease both;
+}
+@-webkit-keyframes mainpadding{
+    0%{
+        margin: 93px auto;
+    }
+    100%{
+        margin: 16px auto;
+    }
+}
+@-webkit-keyframes imgSmall{
+    0%{-webkit-transform:scale(1)}
+    100%{-webkit-transform:scale(.7)}
+}
+@-webkit-keyframes fadeIn{
+    0%{opacity:0;-webkit-transform:scale(.3)}
+    100%{opacity:1;-webkit-transform:scale(1)}
+}
+@-webkit-keyframes rotate{
+    0%{opacity:0;-webkit-transform:rotate(0deg);}
+    50%{opacity:1;-webkit-transform:rotate(180deg);}
+    100%{opacity:0;-webkit-transform:rotate(360deg);}
+}
+@-webkit-keyframes fadeInUp{
+    0%{opacity:0;
+        -webkit-transform:translateY(25px)}
+    100%{opacity:1;
+        -webkit-transform:translateY(0)}
+}
+@-webkit-keyframes fadeOutUp{
+    0%{opacity:1;
+        /*-webkit-transform:translateY(0)*/
+    }
+    100%{opacity:0;
+        /*-webkit-transform:translateY(-20px)*/
+    }
+}
+@-webkit-keyframes cardUp{
+    0%{opacity:0;
+        -webkit-transform:translateY(160px)}
+    /*50%{opacity: 0;}*/
+    100%{opacity:1;
+        -webkit-transform:translateY(0)}
+}
+</style>
+<body>
+	<div class="welcome-main">
+        <div class="wec-img">
+            <img src="./images/ball.png" />
+        </div>
+        <p class="hi fst">Hi,我是客服小滴,很高兴为您服务!</p>
+        <div class="wec-card bst-card">
+            <div class="card-business">
+                <p class="tit"><span>请选择您要咨询的业务类型</span></p>
+                <ul class="business-nav clearfix">
+                    <li><a class="taxi" data-power="czc"  data-business="2">出租车</a></li>
+                    <li><a class="kuai" data-power="kc"  data-business="7">快车</a></li>
+                    <li><a class="zhuan" data-power="zc"  data-business="1">专车</a></li>
+                    <li><a class="shun" data-power="sfc" data-business="3">顺风车</a></li>
+                    <li><a class="dai" data-power="dj"  data-business="6">代驾</a></li>
+                    <li><a class="bus" data-power="qy"  data-business="4">企业用车</a></li>
+                    <!--<li><a class="bus" data-power="bus"  data-business="5">巴士</a></li>-->
+                    <!--<li><a class="shi" data-power="sj"  data-business="11">试驾</a></li>-->
+                </ul>
+            </div>
+        </div>
+	</div>
+<script>
+    $('.welcome-main').addClass('loading');
+    setTimeout(function(){
+        $('.hi.fst').removeClass('loading');
+        $('.welcome-main').addClass('loaded');
+    },700);
+
+</script>
+
+
+</body>
+</html>

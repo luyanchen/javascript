@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>flex</title>
+        <meta charset="utf-8">
+        <meta content="telephone=no" name="format-detection">
+        <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+        <style>
+        .content{
+            width: 100%;
+        }
+        .flex-box{
+          display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+          display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+          display: -ms-flexbox;      /* TWEENER - IE 10 */
+          display: -webkit-flex;     /* NEW - Chrome */
+          display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+          flex-direction: row-reverse;/*row | row-reverse | column | column-reverse*/
+          flex-wrap: wrap; /*nowrap | wrap | wrap-reverse 是否换行*/  
+          /*flex-flow: <flex-direction> || <flex-wrap>;*/
+          justify-content:space-around; /*在主轴上的对齐方式flex-start | flex-end | center | space-between | space-around*/
+          align-items: flex-end;/*在交叉轴上如何对齐。flex-start | flex-end | center | baseline | stretch;*/
+
+        }
+        .flex-item1{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;/*该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]*/
+        }
+        .flex-item2{
+            flex-grow:2;/*flex-grow定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大*/
+            flex-shrink: 0; /* default 1 定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小*/
+            flex-basis: 100px; /* default auto 可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间*/
+        }
+        .con1{height:100px;width:30px;background: red;margin:0px 10px;}
+        .con2{height:200px;width:30px;background: red;}
+        </style>
+    </head>
+    <body>
+    	<div class="flex-box">
+        	<div class="con1">
+        		<p>contentcontend1
+        		</p>
+        	</div>
+            <div class="con2">
+                <p>contentcontend2
+                </p>
+            </div>
+            <div class="con1">
+                <p>contentcontend1
+                </p>
+            </div>
+        </div>
+        <div class="flex-box">
+            <div class="flex-item1">
+                <p>contentcontend3
+                </p>
+            </div>
+        	<div class="flex-item2">
+        		<p>contentcontent4
+        		</p>
+        	</div>
+        </div>
+    </body>
+</html>
