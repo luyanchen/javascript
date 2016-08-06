@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>$.defer实例</title>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.1.min.js"></script>
+</head>
+<body>
+	<button class="btn">images</button>
+	<div class="loadingicon">
+		<image src="./images/ball.png"></image>
+	</div>
+	<div class="loadingicon2">
+		<image src="./images/ball.png"></image>
+	</div>
+	<script>
+		$('.loadingicon').hide();
+		$('.loadingicon2').hide();
+		function getData3(){
+	        var defer = $.Deferred();
+	        $.ajax({
+	            url : './test.php',
+	            async : false,
+	            success: function(data){
+	                defer.resolve(data);
+	            }
+	        });
+	   		return defer.promise();
+		}   
+
+
+		$('.btn').click(function(){
+	        $('.loadingicon2').show();
+	        $.when(getData3()).done(function(data){
+	            $('.loadingicon').show();
+        	});
+		}); 
+
+
+
+/*
+//ui被阻塞
+		$('.loadingicon').hide();
+		$('.loadingicon2').hide();
+		function getData3(){
+	        var defer = $.Deferred();
+	        $.ajax({
+	            url : './test.php',
+	            async : false,
+	            success: function(data){
+	                 $('.loadingicon2').show();
+	            }
+	        });
+		}   
+		$('.btn').click(function(){	
+			$('.loadingicon').show();
+			 getData3(); 		 
+		});
+*/
+	</script>
+</body>
+</html>

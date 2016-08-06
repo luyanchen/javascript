@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>promise</title>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.1.min.js"></script>
+</head>
+<body>
+	<script>
+
+
+	function step1(resolve, reject) {
+	    console.log('步骤一：执行');
+	    $.ajax({
+		    url : './test.php',
+		    //async : false,
+		    success: function(data){
+		        resolve(data+'1');
+		    },
+		    error: function(data){
+				reject(new Error(this.statusText));		    
+			}
+		});
+	}
+
+	function step2(resolve, reject) {
+	    console.log('步骤二：执行');
+	    $.ajax({
+		    url : './test.php',
+		    async : false,
+		    success: function(data){
+		        resolve(data+'2');
+		    },
+		    error: function(data){
+				reject(new Error(this.statusText));		    
+			}
+		});
+	}
+	function step3(resolve, reject) {
+	    console.log('步骤三：执行');
+	    $.ajax({
+		    url : './test.php',
+		    //async : false,
+		    success: function(data){
+		        resolve(data+'3');
+		    },
+		    error: function(data){
+				reject(new Error(this.statusText));		    
+			}
+		});
+	}
+	/*嵌套*/
+	new Promise(step1).then(function(data){
+	    console.info(data);
+	    return new Promise(step2);
+	},function(data){
+		console.info("error");
+	}).then(function(data){
+	    console.info(data);
+	    return new Promise(step3);
+	}).then(function(data){
+	    console.info(data);
+	});
+	/*=>方式*/
+	var pro1 =  new Promise((resolve, reject) => {
+	    	setTimeout(resolve, 100, 'done');
+		});
+	/*函数方式*/
+	var pro2 =  new Promise(function(resolve, reject) {
+	    	setTimeout(resolve, 200, 'done');
+		});
+	pro1.then((value) => {
+	  console.log(value);
+	});
+	pro2.then(function(value){
+	  console.log(value);
+	});
+
+	var pro3 =  new Promise((resolve, reject) => {
+	    resolve('end');
+	});
+	var pro4 =  new Promise((resolve, reject) => {
+	    resolve(pro3);
+	});
+	pro4.then(function(data){
+		console.log(data);
+	});
+	/*嵌套二*/
+	function fun1(data){
+		var pro = new Promise(function(resolve,reject){
+			setTimeout(resolve(data),1000);
+		})
+		return pro;
+	}
+	function fun2(data){
+		var pro = new Promise(function(resolve,reject){
+			setTimeout(resolve(data),1000);
+		})
+		return pro;
+	}
+	fun1("hello").then(function(data){
+		return fun2(data);
+	}).then(function(data){
+		console.log(data);
+	});
+
+	var proArr = [pro1,pro2];
+	Promise.all(proArr).then(function(data){
+		console.log(data);
+	});
+
+	</script>
+</body>
+</html>

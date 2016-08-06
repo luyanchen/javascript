@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html id="html">
+    <head>
+        <title>输入@触发事件</title>
+        <meta charset="utf-8">
+        <meta content="telephone=no" name="format-detection">
+    </head>
+    <body>
+        <textarea id='textarea'>
+
+        </textarea>
+        <script>
+        document.getElementById('textarea').addEventListener('input', function(event) {
+            var target = event.target,cursor = target.selectionStart;//选中的起始位置，为选中时默认光标处
+            if(target.value.charAt(cursor-1) === '@') {
+                alert("@");
+            }
+        });
+        </script>
+    </body>
+</html>

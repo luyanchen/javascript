@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1" >
+        <title>自适应轮播图（不同分辨率）</title>
+        <script type="text/javascript" src="./js/jquery.min.js"></script>
+        <style>
+            .list{   
+		        overflow:hidden;  
+		    }  
+		    .list ul{   
+		        margin:0;  
+		        padding:0;  
+		    }  
+		    .list ul li{  
+		        float:left;   
+		    }  
+        </style>
+
+    <head>
+    <body>
+	    <div class="list" id = "slide">  
+	        <ul>  
+	            <li><img src="1.jpg"  alt="1" /></li>  
+	            <li><img src="2.jpg"  alt="2" /></li>  
+	            <li><img src="3.jpg"  alt="3" /></li>  
+	            <li><img src="4.jpg"  alt="4" /></li>  
+	        </ul>  
+	    </div> 
+	    <script>
+	   $(document).ready(function() {
+	    	/*根据图片数量设置css*/
+	    	var width = $(window).width();
+	    	var height = 200;
+	    	/*slide*/
+	    	var slide = new Slide(width,height);
+			function Slide(width,height){
+				var slide = {
+					width:0,
+	    			height:0,
+					init:function(){
+						if(typeof width == undefined || typeof height == undefined){
+							return;
+						}
+						this.width = width;
+						this.height = height;
+						var num = $("#slide ul li").length;
+				    	/*容器宽度高度*/
+				    	$("#slide").css("width",this.width + "px").css("height",this.height + "px");	    	
+				    	$("#slide ul").css("width",num * this.width + "px").css("height",this.height + "px");
+				    	$("#slide ul li").css("width",this.width + "px").css("height",this.height + "px");
+						
+						//this.auto();
+					},
+					auto:function(){
+						var _this = this;//绑定作用域
+						var ulDom = $("#slide ul");//不变，所以尽量不操作 dom
+						setInterval(function(){
+							ulDom.animate(
+								{
+								'margin-left':'-'+ _this.width +'px'
+								},
+								'slow',
+								function(){
+									//此处保证能循环轮播
+									//将已经轮播过的节点的第一张图片添加到末尾的位置
+									//再将margin-left重置为0px;
+									//这样就能一直的循环下去.
+									$("#silde ul").css({'margin-left':0}).children('li').last().after($ul.children('li').first());
+								}
+							);
+						},2000);
+					}
+				}
+				return slide;
+			}
+		});
+	    </script> 
+    </body>
+</html>

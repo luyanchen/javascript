@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-cn">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=1" >
+        <title>audio点击播放</title>
+    <head>
+<body>
+    <div id="audiodiv"> 
+    </div>
+    <button id="start">start</botton>
+    <button id="pause">pause</botton>
+    <script>
+       // var music = document.getElementById("clickSound");
+        //setTimeout(music.play(),5000);
+        //setTimeout(initAudio(),500000);
+        document.getElementById("start").addEventListener("click", function(){
+            console.log("start")
+            var audio = document.getElementById("audio");
+            if(audio){
+                document.getElementById("audiodiv").innerHTML = "";
+            }
+            audio = document.createElement("audio");
+            //audio.setAttribute("autoplay","autoplay");
+            audio.setAttribute("id","audio");
+            var source = document.createElement("source");
+            source.setAttribute("src","sound/test.mp3");
+            audio.appendChild(source);
+            document.getElementById("audiodiv").appendChild(audio);
+            audio.play();
+        });
+        document.getElementById("pause").addEventListener("click", function(){
+            console.log("pause")
+            var audio = document.getElementById("audio");
+            console.log(audio);
+            if(audio){
+                console.log("p");
+                audio.pause();
+            }
+        });
+
+        document.getElementById("start").click();
+
+    </script>
+
+
+</body>
+</html>
