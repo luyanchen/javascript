@@ -23,16 +23,15 @@
     <body>
 	    <div class="list" id = "slide">  
 	        <ul>  
-	            <li><img src="./images/ball.png"  alt="1" /></li>  
-	            <li><img src="./images/1.jpg"  alt="2" /></li>  
-	            <li><img src="./images/2.jpg"  alt="3" /></li>  
+	            <li><img src="./images/1.png"  alt="1" /></li>  
+	            <li><img src="./images/2.png"  alt="2" /></li>  
 	        </ul>  
 	    </div> 
 	    <script>
 	   $(document).ready(function() {
 	    	/*根据图片数量设置css*/
 	    	var width = $(window).width();
-	    	var height = 200;
+	    	var height = (978/1390)*width;
 	    	var direction = "left";
 	    	/*slide*/
 	    	var slide = new Slide(width,height,direction);
@@ -53,9 +52,12 @@
 						this.height = height;
 						var num = $("#slide ul li").length;
 				    	/*容器宽度高度*/
+
 				    	$("#slide").css("width",this.width + "px").css("height",this.height + "px");	    	
 				    	$("#slide ul").css("width",num * this.width + "px").css("height",this.height + "px");
-				    	$("#slide ul li").css("width",this.width + "px").css("height",this.height + "px");
+				    	
+				    	$("#slide ul li img").css("width",this.width + "px").css("height",this.height + "px");
+				    	
 						
 						this.auto();
 						this.bind();
